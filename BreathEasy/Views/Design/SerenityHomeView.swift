@@ -60,11 +60,8 @@ struct SerenityHomeView: View {
         }
         .sheet(isPresented: $showingSession) {
             if let pattern = selectedBreathingPattern {
-                SessionView(
-                    viewModel: sessionViewModel,
-                    pattern: pattern,
-                    duration: 300,
-                    moodBefore: selectedMoodBefore
+                EnhancedSessionView(
+                    pattern: pattern
                 )
             }
         }

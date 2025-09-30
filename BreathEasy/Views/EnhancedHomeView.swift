@@ -59,11 +59,8 @@ struct EnhancedHomeView: View {
         .sheet(isPresented: $showingSession) {
             if let pattern = selectedPattern,
                let breathingPattern = pattern.toBreathingPattern() {
-                SessionView(
-                    viewModel: sessionViewModel,
-                    pattern: breathingPattern,
-                    duration: 300, // 5 minutes default
-                    moodBefore: nil
+                EnhancedSessionView(
+                    pattern: breathingPattern
                 )
             }
         }

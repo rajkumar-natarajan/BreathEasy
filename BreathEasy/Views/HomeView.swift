@@ -58,11 +58,8 @@ struct HomeView: View {
                 }
             }
             .fullScreenCover(isPresented: $showingSession) {
-                SessionView(
-                    viewModel: sessionViewModel,
-                    pattern: viewModel.selectedPattern,
-                    duration: viewModel.sessionDuration,
-                    moodBefore: viewModel.currentMood
+                EnhancedSessionView(
+                    pattern: viewModel.selectedPattern
                 )
             }
             .sheet(isPresented: $viewModel.showingCustomPatternCreator) {
