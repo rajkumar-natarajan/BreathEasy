@@ -1,0 +1,28 @@
+
+🎨 Manual PNG Generation Instructions
+
+Since automatic conversion tools aren't available, please use one of these methods:
+
+METHOD 1: Online SVG to PNG Converter
+1. Go to: https://convertio.co/svg-png/ or https://cloudconvert.com/svg-to-png
+2. Upload: app-icon-standard.svg → Convert to PNG (1024×1024)
+3. Upload: app-icon-dark.svg → Convert to PNG (1024×1024) 
+4. Upload: app-icon-tinted.svg → Convert to PNG (1024×1024)
+5. Rename files to:
+   - app-icon-1024.png
+   - app-icon-1024-dark.png
+   - app-icon-1024-tinted.png
+
+METHOD 2: Preview App (macOS)
+1. Open each SVG file in Preview
+2. File → Export → Format: PNG → Resolution: 1024×1024
+3. Save with correct filenames
+
+METHOD 3: Install ImageMagick
+1. brew install imagemagick
+2. Run this script again
+
+📁 Final Step:
+Copy all three PNG files to: BreathEasy/Assets.xcassets/AppIcon.appiconset/
+
+🎯 The Contents.json file is already configured correctly!

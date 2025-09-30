@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <!-- Serenity Gradient -->
+    <radialGradient id="serenityGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#1e3a5f;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#2d4f73;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#2d4a2d;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4a2d4a;stop-opacity:1" />
+    </radialGradient>
+    
+    <!-- Breathing Orb Gradient -->
+    <radialGradient id="orbGradient" cx="50%" cy="50%" r="40%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.9" />
+      <stop offset="50%" style="stop-color:#2d4f73;stop-opacity:0.7" />
+      <stop offset="100%" style="stop-color:#1e3a5f;stop-opacity:0.5" />
+    </radialGradient>
+    
+    <!-- Lotus Petal Gradient -->
+    <linearGradient id="petalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a2d4a;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#2d4a2d;stop-opacity:0.6" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <circle cx="512" cy="512" r="512" fill="url(#serenityGradient)" />
+
+  <!-- Lotus Petals (8 petals for spiritual symbolism) -->
+  <g transform="translate(512,512)">
+    <!-- Petal 1 (0°) -->
+    <ellipse cx="0" cy="-180" rx="40" ry="80" fill="url(#petalGradient)" opacity="0.7" transform="rotate(0)" />
+    <!-- Petal 2 (45°) -->
+    <ellipse cx="0" cy="-180" rx="40" ry="80" fill="url(#petalGradient)" opacity="0.7" transform="rotate(45)" />
+    <!-- Petal 3 (90°) -->
+    <ellipse cx="0" cy="-180" rx="40" ry="80" fill="url(#petalGradient)" opacity="0.7" transform="rotate(90)" />
+    <!-- Petal 4 (135°) -->
+    <ellipse cx="0" cy="-180" rx="40" ry="80" fill="url(#petalGradient)" opacity="0.7" transform="rotate(135)" />
+    <!-- Petal 5 (180°) -->
+    <ellipse cx="0" cy="-180" rx="40" ry="80" fill="url(#petalGradient)" opacity="0.7" transform="rotate(180)" />
+    <!-- Petal 6 (225°) -->
+    <ellipse cx="0" cy="-180" rx="40" ry="80" fill="url(#petalGradient)" opacity="0.7" transform="rotate(225)" />
+    <!-- Petal 7 (270°) -->
+    <ellipse cx="0" cy="-180" rx="40" ry="80" fill="url(#petalGradient)" opacity="0.7" transform="rotate(270)" />
+    <!-- Petal 8 (315°) -->
+    <ellipse cx="0" cy="-180" rx="40" ry="80" fill="url(#petalGradient)" opacity="0.7" transform="rotate(315)" />
+  </g>
+
+  <!-- Breathing Rings -->
+  <circle cx="512" cy="512" r="120" fill="none" stroke="#cccccc" stroke-width="2" opacity="0.4" />
+  <circle cx="512" cy="512" r="150" fill="none" stroke="#A7C7E7" stroke-width="2" opacity="0.3" />
+  <circle cx="512" cy="512" r="180" fill="none" stroke="#B2D8B2" stroke-width="2" opacity="0.2" />
+
+  <!-- Central Breathing Orb -->
+  <circle cx="512" cy="512" r="80" fill="url(#orbGradient)" />
+
+  <!-- Zen Particles -->
+  <circle cx="350" cy="280" r="4" fill="#cccccc" opacity="0.6" />
+  <circle cx="680" cy="320" r="3" fill="#A7C7E7" opacity="0.5" />
+  <circle cx="400" cy="750" r="5" fill="#B2D8B2" opacity="0.4" />
+  <circle cx="720" cy="680" r="3" fill="#D7BDE2" opacity="0.5" />
+  <circle cx="280" cy="600" r="4" fill="#87CEEB" opacity="0.6" />
+  <circle cx="780" cy="450" r="3" fill="#cccccc" opacity="0.4" />
+</svg>

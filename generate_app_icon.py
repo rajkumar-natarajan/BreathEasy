@@ -1,0 +1,470 @@
+#!/usr/bin/env python3
+"""
+App Icon Generator for BreathEasy
+Generates all required iOS app icon sizes from SVG design
+"""
+
+import os
+import sys
+from pathlib import Path
+
+def create_app_icon_html_preview():
+    """Create an HTML file to preview the app icon design"""
+    html_content = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BreathEasy App Icon Preview</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #2C3E50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .header p {
+            color: #5A6C7D;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .icon-item {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .icon-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .icon-display {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        
+        .icon-display svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .icon-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 5px;
+        }
+        
+        .icon-size {
+            font-size: 0.9rem;
+            color: #7F8C8D;
+        }
+        
+        .design-info {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .design-info h2 {
+            color: #2C3E50;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        
+        .design-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .feature {
+            padding: 15px;
+            background: #F8F9FA;
+            border-radius: 10px;
+            border-left: 4px solid #A7C7E7;
+        }
+        
+        .feature h3 {
+            margin: 0 0 8px 0;
+            color: #2C3E50;
+            font-size: 1rem;
+        }
+        
+        .feature p {
+            margin: 0;
+            color: #5A6C7D;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🍃 BreathEasy App Icon</h1>
+        <p>Zen-inspired design with breathing symbolism</p>
+    </div>
+    
+    <div class="icon-grid">
+        <div class="icon-item">
+            <div class="icon-display">
+                <svg width="120" height="120" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Include the full SVG content here -->
+                    <defs>
+                        <radialGradient id="bg" cx="50%" cy="30%" r="70%">
+                            <stop offset="0%" style="stop-color:#A7C7E7;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#87CEEB;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#B2D8B2;stop-opacity:1" />
+                        </radialGradient>
+                        <radialGradient id="orb" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.9" />
+                            <stop offset="30%" style="stop-color:#D7BDE2;stop-opacity:0.7" />
+                            <stop offset="70%" style="stop-color:#A7C7E7;stop-opacity:0.5" />
+                            <stop offset="100%" style="stop-color:#87CEEB;stop-opacity:0.3" />
+                        </radialGradient>
+                        <linearGradient id="lotus" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.95" />
+                            <stop offset="50%" style="stop-color:#D7BDE2;stop-opacity:0.8" />
+                            <stop offset="100%" style="stop-color:#A7C7E7;stop-opacity:0.6" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="1024" height="1024" rx="180" ry="180" fill="url(#bg)" />
+                    <circle cx="512" cy="512" r="280" fill="url(#orb)" opacity="0.6" />
+                    <circle cx="512" cy="512" r="240" fill="url(#orb)" opacity="0.8" />
+                    <g transform="translate(512,512)">
+                        <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotus)" />
+                        <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotus)" transform="rotate(45)" />
+                        <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotus)" transform="rotate(90)" />
+                        <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotus)" transform="rotate(135)" />
+                        <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotus)" transform="rotate(180)" />
+                        <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotus)" transform="rotate(225)" />
+                        <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotus)" transform="rotate(270)" />
+                        <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotus)" transform="rotate(315)" />
+                        <circle cx="0" cy="0" r="25" fill="#FFFFFF" opacity="0.9" />
+                        <circle cx="0" cy="0" r="18" fill="url(#lotus)" opacity="0.8" />
+                    </g>
+                    <circle cx="512" cy="512" r="180" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.3" />
+                    <circle cx="512" cy="512" r="140" fill="none" stroke="#D7BDE2" stroke-width="2" opacity="0.4" />
+                    <circle cx="512" cy="512" r="100" fill="none" stroke="#A7C7E7" stroke-width="2" opacity="0.5" />
+                    <ellipse cx="512" cy="350" rx="200" ry="80" fill="#FFFFFF" opacity="0.15" />
+                </svg>
+            </div>
+            <div class="icon-label">App Store</div>
+            <div class="icon-size">1024×1024</div>
+        </div>
+        
+        <div class="icon-item">
+            <div class="icon-display" style="width: 80px; height: 80px;">
+                <svg width="80" height="80" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Same SVG content scaled -->
+                    <defs>
+                        <radialGradient id="bg2" cx="50%" cy="30%" r="70%">
+                            <stop offset="0%" style="stop-color:#A7C7E7;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#87CEEB;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#B2D8B2;stop-opacity:1" />
+                        </radialGradient>
+                        <radialGradient id="orb2" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.9" />
+                            <stop offset="30%" style="stop-color:#D7BDE2;stop-opacity:0.7" />
+                            <stop offset="70%" style="stop-color:#A7C7E7;stop-opacity:0.5" />
+                            <stop offset="100%" style="stop-color:#87CEEB;stop-opacity:0.3" />
+                        </radialGradient>
+                        <linearGradient id="lotus2" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.95" />
+                            <stop offset="50%" style="stop-color:#D7BDE2;stop-opacity:0.8" />
+                            <stop offset="100%" style="stop-color:#A7C7E7;stop-opacity:0.6" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="1024" height="1024" rx="180" ry="180" fill="url(#bg2)" />
+                    <circle cx="512" cy="512" r="280" fill="url(#orb2)" opacity="0.6" />
+                    <circle cx="512" cy="512" r="240" fill="url(#orb2)" opacity="0.8" />
+                    <g transform="translate(512,512)">
+                        <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotus2)" />
+                        <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotus2)" transform="rotate(60)" />
+                        <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotus2)" transform="rotate(120)" />
+                        <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotus2)" transform="rotate(180)" />
+                        <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotus2)" transform="rotate(240)" />
+                        <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotus2)" transform="rotate(300)" />
+                        <circle cx="0" cy="0" r="25" fill="#FFFFFF" opacity="0.9" />
+                        <circle cx="0" cy="0" r="18" fill="url(#lotus2)" opacity="0.8" />
+                    </g>
+                    <circle cx="512" cy="512" r="180" fill="none" stroke="#FFFFFF" stroke-width="6" opacity="0.3" />
+                    <circle cx="512" cy="512" r="140" fill="none" stroke="#D7BDE2" stroke-width="4" opacity="0.4" />
+                </svg>
+            </div>
+            <div class="icon-label">Home Screen</div>
+            <div class="icon-size">60×60</div>
+        </div>
+        
+        <div class="icon-item">
+            <div class="icon-display" style="width: 60px; height: 60px;">
+                <svg width="60" height="60" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Simplified version for smaller sizes -->
+                    <defs>
+                        <radialGradient id="bg3" cx="50%" cy="30%" r="70%">
+                            <stop offset="0%" style="stop-color:#A7C7E7;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#87CEEB;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#B2D8B2;stop-opacity:1" />
+                        </radialGradient>
+                        <radialGradient id="orb3" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.9" />
+                            <stop offset="70%" style="stop-color:#A7C7E7;stop-opacity:0.5" />
+                            <stop offset="100%" style="stop-color:#87CEEB;stop-opacity:0.3" />
+                        </radialGradient>
+                    </defs>
+                    <rect width="1024" height="1024" rx="180" ry="180" fill="url(#bg3)" />
+                    <circle cx="512" cy="512" r="280" fill="url(#orb3)" opacity="0.8" />
+                    <g transform="translate(512,512)">
+                        <circle cx="0" cy="0" r="120" fill="#FFFFFF" opacity="0.7" />
+                        <circle cx="0" cy="0" r="80" fill="#D7BDE2" opacity="0.6" />
+                        <circle cx="0" cy="0" r="40" fill="#FFFFFF" opacity="0.9" />
+                    </g>
+                    <circle cx="512" cy="512" r="200" fill="none" stroke="#FFFFFF" stroke-width="8" opacity="0.4" />
+                </svg>
+            </div>
+            <div class="icon-label">Settings</div>
+            <div class="icon-size">29×29</div>
+        </div>
+    </div>
+    
+    <div class="design-info">
+        <h2>🎨 Design Philosophy</h2>
+        <p>The BreathEasy app icon embodies the core principles of mindfulness and tranquility. Each element is carefully crafted to evoke a sense of calm and inspire breathing practice.</p>
+        
+        <div class="design-features">
+            <div class="feature">
+                <h3>🌸 Lotus Symbol</h3>
+                <p>Eight-petaled lotus represents spiritual awakening, purity, and the journey from chaos to enlightenment through breath.</p>
+            </div>
+            
+            <div class="feature">
+                <h3>🌊 Breathing Orb</h3>
+                <p>Central orb with radiating rings symbolizes the expansion and contraction of breath, creating visual rhythm.</p>
+            </div>
+            
+            <div class="feature">
+                <h3>🎨 Serenity Colors</h3>
+                <p>Nature-inspired gradient from soft sky blue to sage green promotes psychological calm and reduces stress.</p>
+            </div>
+            
+            <div class="feature">
+                <h3>✨ Zen Particles</h3>
+                <p>Floating elements create atmosphere of peace and mindfulness, suggesting the flow of vital energy.</p>
+            </div>
+            
+            <div class="feature">
+                <h3>🔮 Radial Harmony</h3>
+                <p>Circular composition with golden ratio proportions creates visual balance and natural aesthetic appeal.</p>
+            </div>
+            
+            <div class="feature">
+                <h3>🌟 Light & Shadow</h3>
+                <p>Subtle gradients and glows create depth while maintaining iOS design guidelines for clarity and recognition.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+    """
+    
+    with open('/Users/rajkumarnatarajan/Documents/raj/BreathEasy/app-icon-preview.html', 'w') as f:
+        f.write(html_content)
+    
+    print("✅ Created app icon preview: app-icon-preview.html")
+
+def update_app_icon_contents():
+    """Update the Contents.json file for AppIcon.appiconset"""
+    contents_json = {
+        "images": [
+            {
+                "filename": "app-icon-1024.png",
+                "idiom": "universal",
+                "platform": "ios",
+                "size": "1024x1024"
+            },
+            {
+                "appearances": [
+                    {
+                        "appearance": "luminosity",
+                        "value": "dark"
+                    }
+                ],
+                "filename": "app-icon-1024-dark.png",
+                "idiom": "universal",
+                "platform": "ios",
+                "size": "1024x1024"
+            },
+            {
+                "appearances": [
+                    {
+                        "appearance": "luminosity",
+                        "value": "tinted"
+                    }
+                ],
+                "filename": "app-icon-1024-tinted.png",
+                "idiom": "universal",
+                "platform": "ios",
+                "size": "1024x1024"
+            }
+        ],
+        "info": {
+            "author": "xcode",
+            "version": 1
+        }
+    }
+    
+    import json
+    contents_path = "/Users/rajkumarnatarajan/Documents/raj/BreathEasy/BreathEasy/Assets.xcassets/AppIcon.appiconset/Contents.json"
+    
+    with open(contents_path, 'w') as f:
+        json.dump(contents_json, f, indent=2)
+    
+    print("✅ Updated AppIcon.appiconset/Contents.json")
+
+def create_icon_generation_instructions():
+    """Create instructions for generating icon files"""
+    instructions = """
+# BreathEasy App Icon Generation Instructions
+
+## Overview
+The app icon has been designed with zen-inspired elements perfect for a breathing/mindfulness app:
+
+🌸 **Lotus Symbol**: Eight-petaled lotus for spiritual awakening
+🌊 **Breathing Orb**: Central breathing visualization with rings
+🎨 **Serenity Colors**: Nature-inspired calming gradient
+✨ **Zen Particles**: Floating elements for peaceful atmosphere
+
+## Files Created
+- `app-icon-design.svg` - Master SVG design file
+- `app-icon-preview.html` - Visual preview of the design
+- Updated `Contents.json` for iOS requirements
+
+## Required Sizes for iOS
+The following PNG files need to be generated from the SVG:
+
+### App Store & Universal
+- `app-icon-1024.png` (1024×1024) - App Store
+- `app-icon-1024-dark.png` (1024×1024) - Dark mode variant
+- `app-icon-1024-tinted.png` (1024×1024) - Tinted variant
+
+## Generation Steps
+
+### Option 1: Using Online SVG to PNG Converter
+1. Open any SVG to PNG converter (e.g., cloudconvert.com, convertio.co)
+2. Upload `app-icon-design.svg`
+3. Set dimensions to 1024×1024 pixels
+4. Download as `app-icon-1024.png`
+5. Place in `BreathEasy/Assets.xcassets/AppIcon.appiconset/`
+
+### Option 2: Using macOS Preview
+1. Open `app-icon-design.svg` in Preview
+2. File → Export As → PNG
+3. Set size to 1024×1024 pixels
+4. Save as `app-icon-1024.png`
+
+### Option 3: Using Command Line (if you have rsvg-convert)
+```bash
+# Install rsvg-convert (if not installed)
+brew install librsvg
+
+# Generate 1024×1024 PNG
+rsvg-convert -w 1024 -h 1024 app-icon-design.svg -o app-icon-1024.png
+```
+
+### Option 4: Using Figma/Adobe Illustrator
+1. Import `app-icon-design.svg`
+2. Export as PNG at 1024×1024 resolution
+3. Ensure high quality (300 DPI minimum)
+
+## Dark & Tinted Variants
+For now, you can use the same image for all three variants:
+- Copy `app-icon-1024.png` to `app-icon-1024-dark.png`
+- Copy `app-icon-1024.png` to `app-icon-1024-tinted.png`
+
+## Design Notes
+- The icon follows iOS Human Interface Guidelines
+- Rounded corners (180px radius) for iOS 18 style
+- High contrast elements for visibility at small sizes
+- Zen-inspired color palette matches app's Serenity Design System
+- Symbolic elements relate directly to breathing and mindfulness
+
+## Verification
+1. Place generated PNG files in AppIcon.appiconset folder
+2. Build the project in Xcode
+3. Check icon appears correctly in simulator
+4. Verify icon displays properly on device home screen
+
+## Next Steps
+After generating the PNG files, the app icon will automatically appear in:
+- Xcode project navigator
+- iOS Simulator home screen
+- App Store Connect (when uploading)
+- Device home screen after installation
+"""
+
+    with open('/Users/rajkumarnatarajan/Documents/raj/BreathEasy/app-icon-instructions.md', 'w') as f:
+        f.write(instructions)
+    
+    print("✅ Created app icon generation instructions: app-icon-instructions.md")
+
+if __name__ == "__main__":
+    print("🎨 Generating BreathEasy App Icon Assets...")
+    print()
+    
+    create_app_icon_html_preview()
+    update_app_icon_contents()
+    create_icon_generation_instructions()
+    
+    print()
+    print("📱 App Icon Assets Generated Successfully!")
+    print()
+    print("📋 Next Steps:")
+    print("1. Open app-icon-preview.html to see the design")
+    print("2. Follow app-icon-instructions.md to generate PNG files")
+    print("3. Place PNG files in Assets.xcassets/AppIcon.appiconset/")
+    print("4. Build project to see new icon")
+    print()
+    print("🎯 Design Highlights:")
+    print("   🌸 Lotus symbol for spiritual awakening")
+    print("   🌊 Breathing orb with radiating rings")
+    print("   🎨 Serenity color palette for calm")
+    print("   ✨ Zen particles for peaceful atmosphere")

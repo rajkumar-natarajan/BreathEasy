@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Gradient -->
+  <defs>
+    <!-- Main gradient from soft sky blue to sage green -->
+    <radialGradient id="backgroundGradient" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#A7C7E7;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B2D8B2;stop-opacity:1" />
+    </radialGradient>
+    
+    <!-- Breathing orb gradient -->
+    <radialGradient id="orbGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.9" />
+      <stop offset="30%" style="stop-color:#D7BDE2;stop-opacity:0.7" />
+      <stop offset="70%" style="stop-color:#A7C7E7;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#87CEEB;stop-opacity:0.3" />
+    </radialGradient>
+    
+    <!-- Lotus gradient -->
+    <linearGradient id="lotusGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.95" />
+      <stop offset="50%" style="stop-color:#D7BDE2;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#A7C7E7;stop-opacity:0.6" />
+    </linearGradient>
+    
+    <!-- Glow effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Drop shadow -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  
+  <!-- Background rounded rectangle with iOS style -->
+  <rect width="1024" height="1024" rx="180" ry="180" fill="url(#backgroundGradient)" />
+  
+  <!-- Floating particles for zen atmosphere -->
+  <circle cx="200" cy="250" r="8" fill="#FFFFFF" opacity="0.4" />
+  <circle cx="820" cy="180" r="6" fill="#D7BDE2" opacity="0.5" />
+  <circle cx="150" cy="780" r="10" fill="#FFFFFF" opacity="0.3" />
+  <circle cx="880" cy="820" r="7" fill="#A7C7E7" opacity="0.4" />
+  <circle cx="300" cy="150" r="5" fill="#B2D8B2" opacity="0.5" />
+  <circle cx="750" cy="750" r="9" fill="#FFFFFF" opacity="0.3" />
+  
+  <!-- Main breathing orb with shadow -->
+  <circle cx="512" cy="512" r="280" fill="url(#orbGradient)" filter="url(#shadow)" opacity="0.6" />
+  <circle cx="512" cy="512" r="240" fill="url(#orbGradient)" opacity="0.8" />
+  
+  <!-- Central lotus/breath symbol -->
+  <g transform="translate(512,512)" filter="url(#glow)">
+    <!-- Lotus petals -->
+    <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotusGradient)" />
+    <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotusGradient)" transform="rotate(45)" />
+    <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotusGradient)" transform="rotate(90)" />
+    <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotusGradient)" transform="rotate(135)" />
+    <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotusGradient)" transform="rotate(180)" />
+    <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotusGradient)" transform="rotate(225)" />
+    <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotusGradient)" transform="rotate(270)" />
+    <path d="M0,-80 C-30,-60 -30,-30 0,-20 C30,-30 30,-60 0,-80 Z" fill="url(#lotusGradient)" transform="rotate(315)" />
+    
+    <!-- Center circle -->
+    <circle cx="0" cy="0" r="25" fill="#FFFFFF" opacity="0.9" />
+    <circle cx="0" cy="0" r="18" fill="url(#lotusGradient)" opacity="0.8" />
+  </g>
+  
+  <!-- Breathing rings -->
+  <circle cx="512" cy="512" r="180" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.3" />
+  <circle cx="512" cy="512" r="140" fill="none" stroke="#D7BDE2" stroke-width="2" opacity="0.4" />
+  <circle cx="512" cy="512" r="100" fill="none" stroke="#A7C7E7" stroke-width="2" opacity="0.5" />
+  
+  <!-- Subtle highlight on top -->
+  <ellipse cx="512" cy="350" rx="200" ry="80" fill="#FFFFFF" opacity="0.15" />
+</svg>
