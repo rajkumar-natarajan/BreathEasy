@@ -172,8 +172,11 @@ class SessionViewModel {
     // MARK: - Phase Management
     
     private func startPhase(_ phase: BreathingPhase, duration: TimeInterval) {
+        // Ensure minimum duration to prevent infinite loops
+        let safeDuration = max(duration, 0.1)
+        
         currentPhase = phase
-        phaseTimeRemaining = duration
+        phaseTimeRemaining = safeDuration
         phaseStartTime = Date()
         phaseProgress = 0.0
         
@@ -184,8 +187,12 @@ class SessionViewModel {
         
         // Trigger speech guidance
         if settings.enableSoundCues && phase != .ready {
-            speechManager.speakBreathingGuidance(for: phase, duration: duration)
+            speechManager.speakBreathingGuidance(for: phase, duration: safeDuration)
         }
+        
+        // Stop existing timers before starting new ones
+        stopPhaseTimer()
+        stopAnimationTimer()
         
         // Start phase timer
         startPhaseTimer()
@@ -194,10 +201,13 @@ class SessionViewModel {
         startAnimationTimer()
         
         // Update breathing animation properties
-        updateBreathingAnimation(for: phase, duration: duration)
+        updateBreathingAnimation(for: phase, duration: safeDuration)
     }
     
     private func advanceToNextPhase() {
+        guard isSessionActive && !isPaused else { return }
+        guard currentPhase != .completed else { return }
+        
         let timing = customTiming ?? currentPattern.defaultTiming
         
         switch currentPhase {
@@ -243,21 +253,39 @@ class SessionViewModel {
     // MARK: - Timer Management
     
     private func startSessionTimer() {
+        guard sessionTimer == nil else { return }
         sessionTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
             self?.updateSessionProgress()
         }
     }
     
     private func startPhaseTimer() {
+        guard phaseTimer == nil else { return }
         phaseTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
             self?.updatePhaseProgress()
         }
     }
     
     private func startAnimationTimer() {
+        guard animationTimer == nil else { return }
         animationTimer = Timer.scheduledTimer(withTimeInterval: 0.016, repeats: true) { [weak self] _ in
             self?.updateAnimations()
         }
+    }
+    
+    private func stopSessionTimer() {
+        sessionTimer?.invalidate()
+        sessionTimer = nil
+    }
+    
+    private func stopPhaseTimer() {
+        phaseTimer?.invalidate()
+        phaseTimer = nil
+    }
+    
+    private func stopAnimationTimer() {
+        animationTimer?.invalidate()
+        animationTimer = nil
     }
     
     private func stopAllTimers() {
@@ -285,13 +313,18 @@ class SessionViewModel {
     
     private func updatePhaseProgress() {
         guard isSessionActive && !isPaused else { return }
+        guard phaseTimeRemaining > 0 else { return }
         
         let elapsed = Date().timeIntervalSince(phaseStartTime)
         phaseTimeRemaining = max(0, phaseTimeRemaining - 0.1)
-        phaseProgress = elapsed / (elapsed + phaseTimeRemaining)
+        
+        // Safely calculate progress to avoid division by zero
+        let totalPhaseDuration = elapsed + phaseTimeRemaining
+        phaseProgress = totalPhaseDuration > 0 ? elapsed / totalPhaseDuration : 1.0
         
         // Check for phase completion
         if phaseTimeRemaining <= 0 {
+            stopPhaseTimer()
             advanceToNextPhase()
         }
     }
