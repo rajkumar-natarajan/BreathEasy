@@ -222,7 +222,7 @@ def save_heart_pulse_svg_files():
     print("   🎨 app-icon-heart-tinted.svg")
 
 def convert_with_imagemagick():
-    """Try to convert using ImageMagick"""
+    """Try to convert using cairosvg (more reliable than ImageMagick)"""
     svg_files = [
         ('app-icon-heart-standard.svg', 'app-icon-1024.png'),
         ('app-icon-heart-dark.svg', 'app-icon-1024-dark.png'),
@@ -230,23 +230,35 @@ def convert_with_imagemagick():
     ]
     
     success = True
-    for svg_file, png_file in svg_files:
-        try:
-            # Try ImageMagick convert command
-            result = subprocess.run([
-                'convert', svg_file, '-resize', '1024x1024', png_file
-            ], capture_output=True, text=True)
-            
-            if result.returncode == 0:
+    try:
+        import cairosvg
+        for svg_file, png_file in svg_files:
+            try:
+                # Use cairosvg for conversion
+                cairosvg.svg2png(url=svg_file, write_to=png_file, output_width=1024, output_height=1024)
                 print(f"✅ Converted {svg_file} → {png_file}")
-            else:
-                print(f"❌ ImageMagick failed for {svg_file}")
+            except Exception as e:
+                print(f"❌ cairosvg failed for {svg_file}: {e}")
                 success = False
                 break
-        except FileNotFoundError:
-            print("❌ ImageMagick not found")
-            success = False
-            break
+    except ImportError:
+        # Fallback to ImageMagick if cairosvg not available
+        for svg_file, png_file in svg_files:
+            try:
+                result = subprocess.run([
+                    'convert', svg_file, '-resize', '1024x1024', png_file
+                ], capture_output=True, text=True)
+                
+                if result.returncode == 0:
+                    print(f"✅ Converted {svg_file} → {png_file}")
+                else:
+                    print(f"❌ ImageMagick failed for {svg_file}")
+                    success = False
+                    break
+            except FileNotFoundError:
+                print("❌ Neither cairosvg nor ImageMagick found")
+                success = False
+                break
     
     return success
 
