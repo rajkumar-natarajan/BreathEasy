@@ -60,6 +60,41 @@ class DataManager {
         return getSessions(from: today, to: tomorrow)
     }
     
+    /// Gets recent sessions (last 10)
+    var recentSessions: [BreathingSession] {
+        return Array(sessions.prefix(10))
+    }
+    
+    /// Gets sessions for this week
+    var weekSessions: [BreathingSession] {
+        let calendar = Calendar.current
+        let startOfWeek = calendar.dateInterval(of: .weekOfYear, for: Date())?.start ?? Date()
+        return getSessions(from: startOfWeek, to: Date())
+    }
+    
+    /// All sessions (for compatibility)
+    var allSessions: [BreathingSession] {
+        return sessions
+    }
+    
+    /// Today's total minutes
+    var todayMinutes: Int {
+        return Int(todaySessions.reduce(0) { $0 + $1.duration } / 60)
+    }
+    
+    /// Total minutes across all sessions
+    var totalMinutes: Int {
+        return Int(sessions.reduce(0) { $0 + $1.duration } / 60)
+    }
+    
+    /// Available breathing patterns
+    var breathingPatterns: [BreathingPatternStruct] {
+        return BreathingPattern.allCases.compactMap { pattern in
+            guard pattern != .custom else { return nil } // Exclude custom for now
+            return BreathingPatternStruct(from: pattern)
+        }
+    }
+    
     /// Total sessions count
     var totalSessionsCount: Int {
         return sessions.count
@@ -89,6 +124,25 @@ class DataManager {
         if customPatterns.count >= 5 {
             earnBadge(.customExplorer)
         }
+    }
+    
+    /// Convenience method to add custom pattern from BreathingPatternStruct
+    func addCustomPattern(_ patternStruct: BreathingPatternStruct) {
+        let timing = BreathingTiming(
+            inhale: Double(patternStruct.inhaleSeconds),
+            hold: Double(patternStruct.holdSeconds),
+            exhale: Double(patternStruct.exhaleSeconds),
+            pause: Double(patternStruct.pauseSeconds)
+        )
+        
+        let customPattern = CustomBreathingPattern(
+            name: patternStruct.name,
+            timing: timing,
+            colorScheme: .purple, // Default color scheme
+            dateCreated: Date()
+        )
+        
+        saveCustomPattern(customPattern)
     }
     
     /// Deletes a custom pattern

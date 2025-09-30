@@ -9,7 +9,7 @@ import SwiftUI
 import UserNotifications
 
 /// Settings view for app configuration and preferences
-struct SettingsView: View {
+struct OriginalSettingsView: View {
     private let dataManager = DataManager.shared
     @State private var settings = DataManager.shared.settings
     @State private var showingNotificationPermissionAlert = false
@@ -322,5 +322,5 @@ struct AboutView: View {
 }
 
 #Preview {
-    SettingsView()
+    OriginalSettingsView()
 }

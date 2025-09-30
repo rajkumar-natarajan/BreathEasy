@@ -137,32 +137,28 @@ struct CustomPatternCreatorView: View {
                     title: "Inhale",
                     value: $inhaleTime,
                     range: 1...20,
-                    color: .blue,
-                    icon: "arrow.up.circle.fill"
+                    color: .blue
                 )
                 
                 TimingSlider(
                     title: "Hold",
                     value: $holdTime,
                     range: 0...30,
-                    color: .purple,
-                    icon: "pause.circle.fill"
+                    color: .purple
                 )
                 
                 TimingSlider(
                     title: "Exhale",
                     value: $exhaleTime,
                     range: 1...30,
-                    color: .green,
-                    icon: "arrow.down.circle.fill"
+                    color: .green
                 )
                 
                 TimingSlider(
                     title: "Pause",
                     value: $pauseTime,
                     range: 0...10,
-                    color: .orange,
-                    icon: "minus.circle.fill"
+                    color: .orange
                 )
             }
         }
@@ -287,40 +283,6 @@ struct CustomPatternCreatorView: View {
         let trimmedName = patternName.trimmingCharacters(in: .whitespacesAndNewlines)
         onSave(trimmedName, currentTiming, selectedColorScheme)
         dismiss()
-    }
-}
-
-// MARK: - Supporting Views
-
-struct TimingSlider: View {
-    let title: String
-    @Binding var value: Double
-    let range: ClosedRange<Double>
-    let color: Color
-    let icon: String
-    
-    var body: some View {
-        VStack(spacing: 8) {
-            HStack {
-                Image(systemName: icon)
-                    .foregroundColor(color)
-                    .font(.title3)
-                
-                Text(title)
-                    .font(.body)
-                    .fontWeight(.medium)
-                
-                Spacer()
-                
-                Text("\(String(format: "%.1f", value))s")
-                    .font(.body.monospacedDigit())
-                    .foregroundColor(.secondary)
-                    .frame(width: 50, alignment: .trailing)
-            }
-            
-            Slider(value: $value, in: range, step: 0.5)
-                .accentColor(color)
-        }
     }
 }
 

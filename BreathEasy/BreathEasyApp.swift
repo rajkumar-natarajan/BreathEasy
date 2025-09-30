@@ -11,6 +11,9 @@ import AVFoundation
 
 @main
 struct BreathEasyApp: App {
+    @State private var dataManager = DataManager.shared
+    @State private var isLaunchScreenVisible = true
+    
     init() {
         // Configure app on launch
         configureApp()
@@ -18,10 +21,24 @@ struct BreathEasyApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .onAppear {
-                    scheduleNotifications()
+            ZStack {
+                if isLaunchScreenVisible {
+                    SerenityLaunchScreen(
+                        onLaunchComplete: {
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                isLaunchScreenVisible = false
+                            }
+                        }
+                    )
+                } else {
+                    SerenityContentView()
+                        .environment(dataManager)
+                        .transition(.opacity)
+                        .onAppear {
+                            scheduleNotifications()
+                        }
                 }
+            }
         }
     }
     

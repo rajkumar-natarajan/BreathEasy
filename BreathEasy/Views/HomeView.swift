@@ -51,7 +51,7 @@ struct HomeView: View {
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: SettingsView()) {
+                    NavigationLink(destination: OriginalSettingsView()) {
                         Image(systemName: "gear")
                             .foregroundColor(.primary)
                     }
@@ -233,11 +233,15 @@ struct HomeView: View {
                 HStack(spacing: 16) {
                     ForEach(viewModel.availablePatterns) { patternItem in
                         PatternCard(
-                            pattern: patternItem,
-                            isSelected: viewModel.selectedPattern == patternItem.pattern,
-                            onTap: {
-                                viewModel.selectPattern(patternItem.pattern)
-                            }
+                            pattern: BreathingPatternStruct(
+                                name: patternItem.displayName,
+                                description: patternItem.pattern.description,
+                                inhaleSeconds: Int(patternItem.timing.inhale),
+                                holdSeconds: Int(patternItem.timing.hold),
+                                exhaleSeconds: Int(patternItem.timing.exhale),
+                                pauseSeconds: Int(patternItem.timing.pause),
+                                isCustom: patternItem.isCustom
+                            )
                         )
                     }
                 }
@@ -429,57 +433,6 @@ struct HomeView: View {
 }
 
 // MARK: - Supporting Views
-
-struct PatternCard: View {
-    let pattern: PatternDisplayItem
-    let isSelected: Bool
-    let onTap: () -> Void
-    
-    var body: some View {
-        Button(action: onTap) {
-            VStack(alignment: .leading, spacing: 12) {
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(pattern.displayName)
-                            .font(.headline)
-                            .fontWeight(.medium)
-                            .multilineTextAlignment(.leading)
-                        
-                        Text(timingDescription)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.leading)
-                    }
-                    
-                    Spacer()
-                }
-                
-                // Mini breathing orb preview
-                HStack {
-                    BreathingOrbPreview(colorScheme: pattern.pattern.colorScheme)
-                    
-                    Spacer()
-                }
-            }
-            .padding()
-            .frame(width: 200, height: 120)
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(Color(.systemGray6))
-                    .stroke(
-                        isSelected ? ColorSchemeManager.primaryColor(for: pattern.pattern.colorScheme) : Color.clear,
-                        lineWidth: 2
-                    )
-            )
-        }
-        .buttonStyle(PlainButtonStyle())
-    }
-    
-    private var timingDescription: String {
-        let timing = pattern.timing
-        return "\(Int(timing.inhale))s-\(Int(timing.hold))s-\(Int(timing.exhale))s-\(Int(timing.pause))s"
-    }
-}
 
 struct BreathingOrbPreview: View {
     let colorScheme: BreathingColorScheme
