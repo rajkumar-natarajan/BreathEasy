@@ -52,7 +52,8 @@ struct BreathEasyApp: App {
     
     private func configureAudioSession() {
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers, .allowBluetooth])
+            try AVAudioSession.sharedInstance().setActive(true)
         } catch {
             print("Failed to configure audio session: \(error)")
         }

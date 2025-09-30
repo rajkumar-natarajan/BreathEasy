@@ -26,8 +26,12 @@ class SpeechManager: NSObject, @unchecked Sendable {
     
     private func configureAudioSession() {
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
-            try AVAudioSession.sharedInstance().setActive(true)
+            // Check if audio session is already configured to avoid conflicts
+            let currentCategory = AVAudioSession.sharedInstance().category
+            if currentCategory != .playback {
+                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers, .allowBluetooth])
+                try AVAudioSession.sharedInstance().setActive(true)
+            }
         } catch {
             print("Failed to configure audio session: \(error)")
         }
@@ -139,11 +143,18 @@ class SpeechManager: NSObject, @unchecked Sendable {
     // MARK: - Private Methods
     
     private func speak(text: String) {
+        // Stop any current speech to prevent overlapping
+        if synthesizer.isSpeaking {
+            synthesizer.stopSpeaking(at: .immediate)
+        }
+        
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = getVoiceForLanguage()
-        utterance.rate = 0.5 // Slower, calming pace
-        utterance.pitchMultiplier = 0.9 // Slightly lower pitch for relaxation
-        utterance.volume = 0.8
+        utterance.rate = 0.45 // Slightly slower for better clarity
+        utterance.pitchMultiplier = 0.95 // More natural pitch
+        utterance.volume = 0.7 // Reduced volume to prevent distortion
+        utterance.preUtteranceDelay = 0.1 // Small delay for smoother transition
+        utterance.postUtteranceDelay = 0.1
         
         synthesizer.speak(utterance)
     }
@@ -158,7 +169,13 @@ class SpeechManager: NSObject, @unchecked Sendable {
             languageCode = "es-ES"
         }
         
-        return AVSpeechSynthesisVoice(language: languageCode)
+        // Try to get a high-quality voice first
+        if let voice = AVSpeechSynthesisVoice(language: languageCode) {
+            return voice
+        }
+        
+        // Fallback to default voice if language-specific voice is not available
+        return AVSpeechSynthesisVoice(language: "en-US") ?? AVSpeechSynthesisVoice.speechVoices().first
     }
     
     private func getBreathingGuidanceText(for phase: BreathingPhase, duration: TimeInterval?) -> String {
