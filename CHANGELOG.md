@@ -16,6 +16,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.3] - 2025-09-30
+
+### 🎨 Updated
+- **New Heart + Pulse App Icon Design**: More relevant to BreathEasy's core functionality
+  - ❤️ Heart symbol representing cardiovascular health and wellness
+  - 📊 EKG-style pulse wave for heart rate monitoring visualization
+  - 🫁 Breathing ripples for meditation and breath awareness guidance
+  - 🎨 Calming gradient background with health-focused color palette
+  - ✨ Glow effects and drop shadows for premium visual appeal
+  - 🌙 Dark mode and tinted variations for iOS system integration
+  - 💚 Green health indicators for vital signs monitoring
+  - 🌊 Air flow curves suggesting natural breathing patterns
+
+### 🔧 Technical Improvements
+- Enhanced SVG icon generation system with health-focused elements
+- Improved color palettes for better health app recognition
+- Maintained iOS 18.5+ compatibility with all appearance modes
+- Build verification ensuring seamless integration
+
+---
+
 ## [1.0.2] - 2025-09-30
 
 ### ✨ Added

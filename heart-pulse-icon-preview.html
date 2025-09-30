@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BreathEasy Heart + Pulse App Icon Preview</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 800px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .icon-showcase {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .icon-item {
+            text-align: center;
+        }
+        
+        .icon-container {
+            width: 180px;
+            height: 180px;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .icon-container:hover {
+            transform: scale(1.05);
+        }
+        
+        .icon-container.dark {
+            background: #2c3e50;
+        }
+        
+        .icon-container.tinted {
+            background: #95a5a6;
+        }
+        
+        .icon-container svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .icon-label {
+            font-weight: 600;
+            color: #34495e;
+            font-size: 1.1em;
+        }
+        
+        .features {
+            text-align: left;
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .features h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        .features ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .features li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .features li::before {
+            content: "🫀";
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        
+        .color-palette {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .color-swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .pulse-demo {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🫀 BreathEasy Heart + Pulse Icon</h1>
+        
+        <div class="icon-showcase">
+            <div class="icon-item">
+                <div class="icon-container">
+                    <!-- Standard Icon will be loaded here -->
+                </div>
+                <div class="icon-label">Standard</div>
+            </div>
+            
+            <div class="icon-item">
+                <div class="icon-container dark">
+                    <!-- Dark Icon will be loaded here -->
+                </div>
+                <div class="icon-label">Dark Mode</div>
+            </div>
+            
+            <div class="icon-item">
+                <div class="icon-container tinted">
+                    <!-- Tinted Icon will be loaded here -->
+                </div>
+                <div class="icon-label">Tinted</div>
+            </div>
+        </div>
+        
+        <div class="features">
+            <h3>🎯 Design Features</h3>
+            <ul>
+                <li>Heart symbol representing life and wellness</li>
+                <li>Pulse wave showing heart rate monitoring</li>
+                <li>Breathing ripples for meditation guidance</li>
+                <li>Calming color palette for relaxation</li>
+                <li>Central focus point for breathing exercises</li>
+                <li>Air flow curves suggesting natural breathing</li>
+                <li>Glow effects for premium feel</li>
+                <li>Perfect for health and wellness apps</li>
+            </ul>
+        </div>
+        
+        <div class="pulse-demo">
+            <h3>💗 Heart + Breathing Integration</h3>
+            <p>This icon perfectly represents the BreathEasy app's core functionality:</p>
+            <p><strong>❤️ Heart Health:</strong> Central heart symbol for cardiovascular wellness</p>
+            <p><strong>📊 Pulse Monitoring:</strong> EKG-style wave for heart rate tracking</p>
+            <p><strong>🫁 Breathing Focus:</strong> Ripples and flow lines for breath awareness</p>
+        </div>
+        
+        <div>
+            <h3>🎨 Color Palette</h3>
+            <div class="color-palette">
+                <div class="color-swatch" style="background: #FF6B8A;" title="Heart Pink"></div>
+                <div class="color-swatch" style="background: #4CAF50;" title="Health Green"></div>
+                <div class="color-swatch" style="background: #A7C7E7;" title="Calm Blue"></div>
+                <div class="color-swatch" style="background: #B2D8B2;" title="Serenity Green"></div>
+                <div class="color-swatch" style="background: #87CEEB;" title="Sky Blue"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

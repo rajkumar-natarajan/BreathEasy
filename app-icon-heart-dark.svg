@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <!-- Background Gradient - Calming blue to soft green -->
+    <radialGradient id="backgroundGradient" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" style="stop-color:#1A1A2E;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#16213E;stop-opacity:1" />
+      <stop offset="80%" style="stop-color:#1B2F1B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0E3A5F;stop-opacity:1" />
+    </radialGradient>
+    
+    <!-- Heart Gradient - Warm life colors -->
+    <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B2635;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#A53448;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B8485B;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Pulse Wave Gradient -->
+    <linearGradient id="pulseGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2E7D32;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#388E3C;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#43A047;stop-opacity:0.6" />
+    </linearGradient>
+    
+    <!-- Breathing Ripple Gradient -->
+    <radialGradient id="rippleGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.3" />
+      <stop offset="70%" style="stop-color:#16213E;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#0E3A5F;stop-opacity:0.1" />
+    </radialGradient>
+    
+    <!-- Glow Effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Drop Shadow -->
+    <filter id="dropshadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Background Circle -->
+  <circle cx="512" cy="512" r="512" fill="url(#backgroundGradient)" />
+  
+  <!-- Breathing Ripples -->
+  <circle cx="512" cy="512" r="350" fill="none" stroke="url(#rippleGradient)" stroke-width="2" opacity="0.3" />
+  <circle cx="512" cy="512" r="300" fill="none" stroke="url(#rippleGradient)" stroke-width="2" opacity="0.4" />
+  <circle cx="512" cy="512" r="250" fill="none" stroke="url(#rippleGradient)" stroke-width="2" opacity="0.5" />
+  
+  <!-- Heart Shape -->
+  <g transform="translate(512,400)" filter="url(#dropshadow)">
+    <path d="M 0,40 
+             C -40,0 -80,0 -80,40 
+             C -80,80 -40,120 0,160 
+             C 40,120 80,80 80,40 
+             C 80,0 40,0 0,40 Z" 
+          fill="url(#heartGradient)" 
+          filter="url(#glow)" />
+  </g>
+  
+  <!-- Pulse Wave Line -->
+  <g transform="translate(512,600)" opacity="0.9">
+    <path d="M -200,0 
+             L -150,0 
+             L -130,-30 
+             L -110,60 
+             L -90,-80 
+             L -70,40 
+             L -50,0
+             L 0,0
+             L 20,-20
+             L 40,40
+             L 60,-60
+             L 80,30
+             L 100,0
+             L 200,0" 
+          fill="none" 
+          stroke="url(#pulseGradient)" 
+          stroke-width="4" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          filter="url(#glow)" />
+  </g>
+  
+  <!-- Breathing Indicators -->
+  <g opacity="0.7">
+    <circle cx="300" cy="300" r="6" fill="#2E7D32" opacity="0.8" />
+    <circle cx="724" cy="300" r="6" fill="#2E7D32" opacity="0.6" />
+    <circle cx="300" cy="724" r="6" fill="#388E3C" opacity="0.7" />
+    <circle cx="724" cy="724" r="6" fill="#388E3C" opacity="0.5" />
+    
+    <circle cx="250" cy="400" r="4" fill="#43A047" opacity="0.6" />
+    <circle cx="774" cy="400" r="4" fill="#43A047" opacity="0.4" />
+    <circle cx="400" cy="250" r="4" fill="#4CAF50" opacity="0.5" />
+    <circle cx="624" cy="774" r="4" fill="#4CAF50" opacity="0.4" />
+  </g>
+  
+  <!-- Central Breathing Focus Point -->
+  <circle cx="512" cy="512" r="25" fill="none" stroke="#CCCCCC" stroke-width="2" opacity="0.6" />
+  <circle cx="512" cy="512" r="15" fill="#CCCCCC" opacity="0.4" />
+  
+  <!-- Air Flow Curves -->
+  <g opacity="0.3">
+    <path d="M 350,200 Q 400,150 450,200 Q 500,250 550,200 Q 600,150 650,200" 
+          fill="none" 
+          stroke="#CCCCCC" 
+          stroke-width="2" 
+          stroke-linecap="round" />
+    
+    <path d="M 350,824 Q 400,874 450,824 Q 500,774 550,824 Q 600,874 650,824" 
+          fill="none" 
+          stroke="#CCCCCC" 
+          stroke-width="2" 
+          stroke-linecap="round" />
+  </g>
+</svg>
