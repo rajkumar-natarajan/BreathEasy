@@ -1,0 +1,148 @@
+# License
+
+MIT License
+
+Copyright (c) 2025 Rajkumar Natarajan
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Third-Party Licenses
+
+BreathEasy is built using only Apple's native frameworks and does not include any third-party libraries or dependencies. All functionality is implemented using:
+
+- **SwiftUI** - Apple's declarative UI framework (Apple License)
+- **Foundation** - Apple's fundamental framework (Apple License)
+- **AVFoundation** - Apple's audio and video framework (Apple License)
+- **CoreHaptics** - Apple's haptic feedback framework (Apple License)
+- **UserNotifications** - Apple's notification framework (Apple License)
+
+All Apple frameworks are used under Apple's standard licensing terms for iOS development.
+
+## Inspiration and Attribution
+
+While BreathEasy is original code, it draws inspiration from established breathing techniques and research:
+
+### Breathing Techniques
+- **4-7-8 Breathing** - Based on Dr. Andrew Weil's adaptation of pranayama
+- **Box Breathing** - Navy SEAL tactical breathing technique
+- **Diaphragmatic Breathing** - Medical and therapeutic breathing practice
+- **Resonant Breathing** - Heart Rate Variability research-based technique
+
+### Design Inspiration
+The visual design and user experience draws inspiration from the mindfulness and wellness app ecosystem, while maintaining complete originality in implementation.
+
+## Open Source Commitment
+
+BreathEasy is released as open source software to:
+- Promote transparency in health and wellness applications
+- Enable community contributions and improvements
+- Support educational use for iOS development learning
+- Advance the field of digital wellness tools
+
+## Commercial Use
+
+This MIT license permits commercial use, including:
+- Using BreathEasy code in commercial projects
+- Creating derivative works for commercial purposes
+- Distributing modified versions commercially
+- Incorporating BreathEasy components into proprietary software
+
+**Requirements for commercial use:**
+- Include the MIT license notice in derivative works
+- Include copyright attribution to the original authors
+- No warranty or liability claims against original authors
+
+## Contributing and Copyright
+
+### Contributor Rights
+By contributing to BreathEasy, you:
+- Retain copyright to your original contributions
+- Grant the project a license to use your contributions under the MIT license
+- Agree that your contributions will be distributed under the same MIT license
+
+### Copyright Assignment
+Contributors are not required to assign copyright to the project. You maintain ownership of your contributions while granting usage rights under the MIT license.
+
+### Contributor Agreement
+All contributors implicitly agree to the [Contributor License Agreement](docs/CONTRIBUTING.md) by submitting pull requests.
+
+## Privacy and Data Rights
+
+While this software license covers the code, please note:
+- User data rights are governed by our [Privacy Policy](docs/PRIVACY.md)
+- BreathEasy collects no user data (privacy by design)
+- All user data remains on the user's device
+- No data rights conflicts exist with this open source license
+
+## Trademark and Naming
+
+### BreathEasy Name and Branding
+- "BreathEasy" name and logo are trademarks of Rajkumar Natarajan
+- The MIT license does not grant trademark rights
+- Derivative works should use different names and branding
+- Attribution to the original project is appreciated but not required for the name
+
+### Using BreathEasy Code
+You may:
+- Use the source code under MIT license terms
+- Create derivative applications with different names
+- Reference BreathEasy as inspiration or base code
+- Contribute improvements back to the original project
+
+You may not:
+- Use "BreathEasy" name for derivative works
+- Use BreathEasy logos or distinctive visual elements
+- Claim official association with the original project
+
+## Support and Warranty
+
+### No Warranty
+This software is provided "as is" without warranty of any kind. The authors are not liable for any damages or issues arising from use of the software.
+
+### Community Support
+While no formal support is guaranteed:
+- Community support is available through GitHub issues and discussions
+- Documentation and guides are provided to assist users and developers
+- Bug reports and feature requests are welcomed through appropriate channels
+
+### Medical Disclaimer
+BreathEasy is designed for general wellness and relaxation purposes. It is not intended as medical advice or treatment. Users should consult healthcare providers for medical concerns.
+
+## License Compatibility
+
+The MIT license is compatible with most other open source licenses, including:
+- **GPL v2/v3** - Can be combined in GPL projects
+- **Apache 2.0** - Compatible for most uses
+- **BSD licenses** - Fully compatible
+- **Creative Commons** - Compatible with most CC licenses
+
+For specific compatibility questions, consult legal advice or license compatibility resources.
+
+## Questions and Clarifications
+
+For questions about this license or usage rights:
+- **Technical questions**: Open a GitHub issue
+- **Legal questions**: Consult appropriate legal counsel
+- **Commercial licensing**: Contact [legal@breatheasy-app.com](mailto:legal@breatheasy-app.com)
+
+---
+
+**This license ensures BreathEasy remains free and open while protecting both users and contributors. Thank you for respecting these terms and contributing to open source wellness technology.**
