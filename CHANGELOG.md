@@ -16,6 +16,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.1] - 2025-09-30
+
+### 🐛 Bug Fixes
+- **Critical Timer Fix**: Fixed timer race condition causing infinite loops and crashes during breathing sessions
+  - Added guard statements to prevent duplicate timer creation
+  - Implemented individual timer stop functions for precise control
+  - Added proper timer cleanup in phase transitions
+  - Enforced minimum duration safeguards (0.1s minimum)
+  - Added comprehensive test suite to validate timer fixes
+  - Resolves simulator crashes and erratic breathing pattern behavior
+
+### 🧪 Testing
+- Added `SessionViewModelTests` with comprehensive timer management validation
+- All 6 test cases passing: timer management, phase advancement, pause/resume, completion, and zero-duration handling
+
+---
+
 ## [1.0.0] - 2025-09-30
 
 ### 🎉 Initial Release
