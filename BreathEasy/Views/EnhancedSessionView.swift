@@ -13,6 +13,8 @@ struct EnhancedSessionView: View {
     @State private var sessionViewModel = SessionViewModel()
     @State private var enhancedColorScheme = EnhancedColorScheme.shared
     @State private var showingComplete = false
+    @State private var use3DHeartAnimation = false
+    @State private var showingViewSelector = false
     
     var body: some View {
         ZStack {
@@ -26,13 +28,8 @@ struct EnhancedSessionView: View {
                 
                 Spacer()
                 
-                // Main breathing orb
-                EnhancedBreathingOrbView(
-                    phase: sessionViewModel.currentPhase,
-                    pattern: pattern,
-                    progress: sessionViewModel.phaseProgress,
-                    colorScheme: enhancedColorScheme
-                )
+                // Main breathing visualization - with animation toggle
+                breathingVisualizationSection
                 
                 Spacer()
                 
@@ -65,6 +62,9 @@ struct EnhancedSessionView: View {
                 dismiss()
             }
         }
+        .sheet(isPresented: $showingViewSelector) {
+            visualizationSelectorSheet
+        }
     }
     
     // MARK: - Helper Functions
@@ -76,6 +76,93 @@ struct EnhancedSessionView: View {
     }
     
     // MARK: - View Components
+    
+    private var breathingVisualizationSection: some View {
+        ZStack {
+            if use3DHeartAnimation {
+                AnimatedHeartView(
+                    phase: sessionViewModel.currentPhase,
+                    pattern: pattern,
+                    progress: sessionViewModel.phaseProgress,
+                    colorScheme: enhancedColorScheme
+                )
+                .transition(.asymmetric(
+                    insertion: .scale.combined(with: .opacity),
+                    removal: .scale.combined(with: .opacity)
+                ))
+            } else {
+                EnhancedBreathingOrbView(
+                    phase: sessionViewModel.currentPhase,
+                    pattern: pattern,
+                    progress: sessionViewModel.phaseProgress,
+                    colorScheme: enhancedColorScheme
+                )
+                .transition(.asymmetric(
+                    insertion: .scale.combined(with: .opacity),
+                    removal: .scale.combined(with: .opacity)
+                ))
+            }
+        }
+        .animation(.spring(response: 0.8, dampingFraction: 0.7), value: use3DHeartAnimation)
+    }
+    
+    private var visualizationSelectorSheet: some View {
+        NavigationView {
+            VStack(spacing: DesignTokens.Spacing.xl) {
+                Text("Choose Your Breathing Guide")
+                    .font(DesignTokens.Typography.title2)
+                    .fontWeight(.semibold)
+                    .padding(.top)
+                
+                Text("Select the visualization that helps you focus best during your breathing session.")
+                    .font(DesignTokens.Typography.body)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+                
+                VStack(spacing: DesignTokens.Spacing.lg) {
+                    // Traditional Orb Option
+                    VisualizationOption(
+                        title: "Breathing Orb",
+                        description: "Classic meditation orb with gentle animations",
+                        icon: "circle.fill",
+                        isSelected: !use3DHeartAnimation,
+                        accentColor: enhancedColorScheme.primaryColor
+                    ) {
+                        withAnimation(.spring()) {
+                            use3DHeartAnimation = false
+                        }
+                    }
+                    
+                    // 3D Heart Option
+                    VisualizationOption(
+                        title: "3D Animated Heart",
+                        description: "Cardiovascular system with blood flow visualization",
+                        icon: "heart.fill",
+                        isSelected: use3DHeartAnimation,
+                        accentColor: .red
+                    ) {
+                        withAnimation(.spring()) {
+                            use3DHeartAnimation = true
+                        }
+                    }
+                }
+                .padding(.horizontal)
+                
+                Spacer()
+            }
+            .navigationTitle("Visualization")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        showingViewSelector = false
+                    }
+                }
+            }
+        }
+        .presentationDetents([.medium])
+    }
     
     private var headerSection: some View {
         HStack {
@@ -110,11 +197,11 @@ struct EnhancedSessionView: View {
             
             Spacer()
             
-            // Settings button
+            // Settings/View selector button
             Button {
-                // Open session settings
+                showingViewSelector = true
             } label: {
-                Image(systemName: "slider.horizontal.3")
+                Image(systemName: use3DHeartAnimation ? "heart.fill" : "circle.fill")
                     .font(.title2)
                     .foregroundColor(enhancedColorScheme.primaryColor)
             }
@@ -195,8 +282,8 @@ struct EnhancedSessionView: View {
         .background(
             RoundedRectangle(cornerRadius: DesignTokens.CornerRadius.lg)
                 .fill(enhancedColorScheme.cardBackgroundColor.opacity(0.8))
-                .backdrop(blur: 10)
         )
+        .background(.ultraThinMaterial)
     }
 }
 
@@ -254,6 +341,68 @@ struct PhaseBreakdownView: View {
     }
 }
 
+// MARK: - Supporting Views
+
+struct VisualizationOption: View {
+    let title: String
+    let description: String
+    let icon: String
+    let isSelected: Bool
+    let accentColor: Color
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: DesignTokens.Spacing.md) {
+                // Icon
+                ZStack {
+                    Circle()
+                        .fill(accentColor.opacity(isSelected ? 1.0 : 0.1))
+                        .frame(width: 50, height: 50)
+                    
+                    Image(systemName: icon)
+                        .font(.title2)
+                        .foregroundColor(isSelected ? .white : accentColor)
+                }
+                
+                // Content
+                VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
+                    Text(title)
+                        .font(DesignTokens.Typography.headline)
+                        .foregroundColor(.primary)
+                    
+                    Text(description)
+                        .font(DesignTokens.Typography.subheadline)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.leading)
+                }
+                
+                Spacer()
+                
+                // Selection indicator
+                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                    .font(.title2)
+                    .foregroundColor(isSelected ? accentColor : .secondary)
+            }
+            .padding(DesignTokens.Spacing.md)
+            .background(
+                RoundedRectangle(cornerRadius: DesignTokens.CornerRadius.lg)
+                    .fill(Color(.secondarySystemBackground))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: DesignTokens.CornerRadius.lg)
+                            .stroke(
+                                isSelected ? accentColor : Color.clear,
+                                lineWidth: 2
+                            )
+                    )
+            )
+        }
+        .buttonStyle(PlainButtonStyle())
+        .scaleEffect(isSelected ? 1.02 : 1.0)
+        .animation(.spring(response: 0.3), value: isSelected)
+    }
+}
+
 struct PhaseIndicator: View {
     let title: String
     let duration: Int
@@ -279,17 +428,6 @@ struct PhaseIndicator: View {
         }
         .scaleEffect(isActive ? 1.1 : 1.0)
         .animation(DesignTokens.Animation.spring, value: isActive)
-    }
-}
-
-// MARK: - Session Complete View (Remove duplicate)
-
-extension View {
-    func backdrop(blur radius: CGFloat) -> some View {
-        self.background(
-            .ultraThinMaterial,
-            in: RoundedRectangle(cornerRadius: DesignTokens.CornerRadius.lg)
-        )
     }
 }
 
